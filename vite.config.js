@@ -18,9 +18,10 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          'framer-motion': ['framer-motion'],
-          'lucide': ['lucide-react'],
+        // Use a function instead of object for manualChunks to be compatible with Vite 8+
+        manualChunks(id) {
+          if (id.includes('framer-motion')) return 'framer-motion'
+          if (id.includes('lucide-react')) return 'lucide'
         },
       },
     },
